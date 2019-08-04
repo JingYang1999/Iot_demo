@@ -1,0 +1,44 @@
+{
+    "global": [
+        {
+            "Server": "iot.eclipse.org",
+            "port": "1883",
+            "appid": "01234567",
+            "appkey": "01234567",
+            "message_title": "controller_ID",
+            "message": "device_id+fun"
+        }
+    ],
+    "device": [
+        {
+            "controller_ID": "x5ssl431",
+            "device_ID": "0000",
+            "device_describe": "床上的小灯",
+            "device_type": "light",
+            "function": [
+                "off",
+                "open"
+            ]
+        },
+        {
+            "device_ID": "0001",
+            "controller_ID": "x5ssl431",
+            "device_describe": "宿舍西侧灯",
+            "device_type": "light",
+            "function": [
+                "off",
+                "open"
+            ]
+        },
+        {
+            "device_ID": "0002",
+            "controller_ID": "x5ssl431",
+            "device_describe": "宿舍东侧灯",
+            "device_type": "light",
+            "function": [
+                "off",
+                "open"
+            ]
+        }
+    ]
+}

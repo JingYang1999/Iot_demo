@@ -1,0 +1,14 @@
+{
+    "user": [
+        {
+            "name": "1234",
+            "pswd": "1234",
+            "pwhs": "d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db"
+        },
+        {
+            "name": "abcd",
+            "pswd": "abcd",
+            "pwhs": "d8022f2060ad6efd297ab73dcc5355c9b214054b0d1776a136a669d26a7d3b14f73aa0d0ebff19ee333368f0164b6419a96da49e3e481753e7e96b716bdccb6f"
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Iot Control Panel</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <!-- Custom Styles theme -->
+  <link rel="stylesheet" href="css/panel.css">
+
+  <script type="text/javascript" src="js/global.js"></script>
+
+</head>
+
+<body onload="login_check();connect();">
+  <div class="container">
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="navbar-header">
+            <span class="navbar-brand">Iot Control Panel</span>
+          </div>
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="https://iot.iisjy.cn/" target="_blank">Iot Project Homepage</a>
+            </li>
+            <li>
+              <a onclick="logout()">退出登录</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Nav Bar End -->
+
+
+
+    <!-- Connection info panel -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Status
+
+          </div>
+          <div class="panel-body" id="serverCollapse">
+            <form>
+              <div class="row">
+
+
+                <div class="col-lg-8">
+                  <div class="form-group">
+                    <!-- <label for="clientIdInput">Status</label> -->
+                    <span id="connectionStatus">Connection - Disconnected.</span>
+                    <input type="hidden" class="form-control" id="clientIdInput" value="javascript-client">
+
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          </form>
+        </div>
+        <!-- End of Connection info panel -->
+
+        <div class="row ">
+
+          <!-- Publish panel -->
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Action
+              </div>
+              <div class="panel-body" id="publishCollapse">
+                <form>
+                  <div class="row">
+                    <div class="col-lg-1">
+                      <div class="form-group">
+                        <label for="publishButton"></label>
+                        <button id="ACT_BT_00" type="button" class="btn btn-default" onclick="publish('0');"
+                                disabled>BT_A</a>
+                      </div>
+                    </div>
+                    <div class="col-lg-1">
+                      <div class="form-group">
+                        <label for="publishButton"></label>
+                        <button id="ACT_BT_01" type="button" class="btn btn-default" onclick="publish('1');"
+                                disabled>BT_B</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End of Publish panel -->
+        </div>
+
+        <!-- Source Paho MQTT Client-->
+        <script src="js/paho-mqtt.js"></script>
+
+        <!-- Utility Javascript -->
+        <script src="js/panel.js"></script>
+
+        <!-- Javascript used for Bootstrap Theme -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

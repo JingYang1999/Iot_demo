@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        .login_tb {
+            background-color: bisque;
+            align-content: center;
+        }
+    </style>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/sha512.js"></script>
+    <script>
+        function t_login_check() {
+            var status = "";
+            status = sessionStorage.getItem("status");
+            if (status == "ok") {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</head>
+
+<body onload='t_login_check()'>
+    <div>
+        <h2 id="tx">登录</h2>
+    </div>
+    <form class="login_tb" action="/" method="GET">
+        <table>
+            <tr>
+                <td colspan="3">
+                    <input type="text" name="un" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="password" name="pw" />
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" onclick="login()" value="登录" /></td>
+                <td id="t_bt"></td>
+                <td><input type="reset" /></td>
+            </tr>
+
+        </table>
+
+
+
+    </form>
+</body>
+
+</html>

@@ -61,10 +61,7 @@
                 type: "GET",
                 url: "https://ssl.captcha.qq.com/ticket/verify",
                 async: true,
-                dataType: 'json',
-                headers: {
-                    Origin: "*",
-                },
+                dataType: 'jsonp',
                 data: {
                     aid: aid,
                     AppSecretKey: AppSecretKey,
@@ -118,7 +115,7 @@
                 <td><button id="TencentCaptcha" data-appid="2090784984" data-cbfn="capCallback"
                             type="button">登录</button>
                 </td>
-                <td><input type="reset" /></td>
+                <td><input type="button" value="人脸识别" /></td>
             </tr>
 
         </table>

@@ -44,7 +44,6 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             Status
-
           </div>
           <div class="panel-body" id="serverCollapse">
             <form>
@@ -55,19 +54,17 @@
                   <div class="form-group">
                     <!-- <label for="clientIdInput">Status</label> -->
                     <span id="connectionStatus">Connection - Disconnected.</span>
-                    <input type="hidden" class="form-control" id="clientIdInput" value="javascript-client">
+                    <input type="hidden" class="form-control" id="clientIdInput" value="javascript-client" />
 
                   </div>
                 </div>
               </div>
-
+            </form>
           </div>
-          </form>
         </div>
         <!-- End of Connection info panel -->
 
         <div class="row ">
-
           <!-- Publish panel -->
           <div class="col-md-12">
             <div class="panel panel-default">
@@ -75,40 +72,30 @@
                 Action
               </div>
               <div class="panel-body" id="publishCollapse">
-                <form>
-                  <div class="row">
-                    <div class="col-lg-1">
-                      <div class="form-group">
-                        <label for="publishButton"></label>
-                        <button id="ACT_BT_00" type="button" class="btn btn-default" onclick="publish('0');"
-                                disabled>BT_A</a>
-                      </div>
-                    </div>
-                    <div class="col-lg-1">
-                      <div class="form-group">
-                        <label for="publishButton"></label>
-                        <button id="ACT_BT_01" type="button" class="btn btn-default" onclick="publish('1');"
-                                disabled>BT_B</a>
-                      </div>
-                    </div>
-                  </div>
-
-                </form>
+                <table id="device_ctrl_bt_list">
+                </table>
               </div>
             </div>
           </div>
-          <!-- End of Publish panel -->
         </div>
+        <!-- End of Publish panel -->
+      </div>
+    </div>
+  </div>
 
-        <!-- Source Paho MQTT Client-->
-        <script src="js/paho-mqtt.js"></script>
+  <!-- Source Paho MQTT Client-->
+  <script src="js/paho-mqtt.js"></script>
 
-        <!-- Utility Javascript -->
-        <script src="js/panel.js"></script>
+  <!-- Utility Javascript -->
+  <script src="js/panel.js"></script>
 
-        <!-- Javascript used for Bootstrap Theme -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+  <!-- Javascript used for Bootstrap Theme -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <script>
+    initDeviceList();
+  </script>
 </body>
 
 </html>

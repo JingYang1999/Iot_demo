@@ -4,14 +4,14 @@
         "device_ID": "0000",
         "device_describe": "床上的小灯",
         "device_type": "light",
-        "function": [
+        "fun": [
             {
                 "name": "off",
-                "inst": "0"
+                "fun_id": "0"
             },
             {
-                "name": "off",
-                "inst": "1"
+                "name": "open",
+                "fun_id": "1"
             }
         ]
     },
@@ -20,14 +20,14 @@
         "controller_ID": "x5ssl431",
         "device_describe": "宿舍西侧灯",
         "device_type": "light",
-        "function": [
+        "fun": [
             {
                 "name": "off",
-                "inst": "2"
+                "fun_id": "2"
             },
             {
-                "name": "off",
-                "inst": "3"
+                "name": "open",
+                "fun_id": "3"
             }
         ]
     },
@@ -36,14 +36,14 @@
         "controller_ID": "x5ssl431",
         "device_describe": "宿舍东侧灯",
         "device_type": "light",
-        "function": [
+        "fun": [
             {
                 "name": "off",
-                "inst": "4"
+                "fun_id": "4"
             },
             {
-                "name": "off",
-                "inst": "5"
+                "name": "open",
+                "fun_id": "5"
             }
         ]
     }

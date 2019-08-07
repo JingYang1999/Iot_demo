@@ -1,39 +1,12 @@
-/*******************************************************************************
- * Copyright (c) 2015 IBM Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *    James Sutton - Initial Contribution
- *******************************************************************************/
-
-/*
-Eclipse Paho MQTT-JS Utility
-This utility can be used to test the Eclipse Paho MQTT Javascript client.
-*/
-
-// Create a client instance
 var client = null;
 var connected = false;
 
-
-logMessage("INFO", "Starting Eclipse Paho JavaScript Utility.");
-
-// Things to do as soon as the page loads
 document.getElementById("clientIdInput").value = "js-utility-" + makeid();
 
 // called when the client connects
 function onConnect(context) {
   // Once a connection has been made, make a subscription and send a message.
   var connectionString = context.invocationContext.host + ":" + context.invocationContext.port + context.invocationContext.path;
-  logMessage("INFO", "Connection Success ", "[URI: ", connectionString, ", ID: ", context.invocationContext.clientId, "]");
   var statusSpan = document.getElementById("connectionStatus");
   statusSpan.innerHTML = "Connected to: " + connectionString + " as " + context.invocationContext.clientId;
   connected = true;
@@ -43,14 +16,10 @@ function onConnect(context) {
 
 function onConnected(reconnect, uri) {
   // Once a connection has been made, make a subscription and send a message.
-  logMessage("INFO", "Client Has now connected: [Reconnected: ", reconnect, ", URI: ", uri, "]");
   connected = true;
-
-
 }
 
 function onFail(context) {
-  logMessage("ERROR", "Failed to connect. [Error Message: ", context.errorMessage, "]");
   var statusSpan = document.getElementById("connectionStatus");
   statusSpan.innerHTML = "Failed to connect: " + context.errorMessage;
   connected = false;
@@ -59,15 +28,11 @@ function onFail(context) {
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
-  if (responseObject.errorCode !== 0) {
-    logMessage("INFO", "Connection Lost. [Error Message: ", responseObject.errorMessage, "]");
-  }
   connected = false;
 }
 
 // called when a message arrives
 function onMessageArrived(message) {
-  logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
   var messageTime = new Date().toISOString();
   // Insert into History Table
   var table = document.getElementById("incomingMessageTable").getElementsByTagName("tbody")[0];
@@ -100,15 +65,12 @@ function onMessageArrived(message) {
 }
 
 function connectionToggle() {
-
   if (connected) {
     disconnect();
   } else {
     connect();
   }
-
 }
-
 
 function connect() {
   var hostname = "iot.eclipse.org";
@@ -143,13 +105,10 @@ function connect() {
   } else {
     client = new Paho.Client(hostname, Number(port), clientId);
   }
-  logMessage("INFO", "Connecting to Server: [Host: ", hostname, ", Port: ", port, ", Path: ", client.path, ", ID: ", clientId, "]");
-
   // set callback handlers
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = onMessageArrived;
   client.onConnected = onConnected;
-
 
   var options = {
     invocationContext: { host: hostname, port: port, path: client.path, clientId: clientId },
@@ -187,7 +146,6 @@ function connect() {
 }
 
 function disconnect() {
-  logMessage("INFO", "Disconnecting from Server.");
   client.disconnect();
   var statusSpan = document.getElementById("connectionStatus");
   statusSpan.innerHTML = "Connection - Disconnected.";
@@ -201,18 +159,16 @@ function setFormEnabledState(enabled) {
 
 
   // Publish Panel Elements
-  document.getElementById("ACT_BT_00").disabled = !enabled;
-  document.getElementById("ACT_BT_01").disabled = !enabled;
+  document.getElementsByName("ctrl_bt").disabled = !enabled;
 
 
 }
 
-function publish(flag) {
-  var topic = "x5ssl431";
+function publish(controller, fun_id) {
+  var topic = controller;
   var qos = "1";
-  var message = flag;
+  var message = fun_id;
   var retain = true;
-  logMessage("INFO", "Publishing Message: [Topic: ", topic, ", Payload: ", message, ", QoS: ", qos, ", Retain: ", retain, "]");
 
   for (var i = 0; i < 10; i++) {
     message = new Paho.Message(message);
@@ -244,24 +200,47 @@ function safeTagsRegex(str) {
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
   for (var i = 0; i < 5; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
-
   return text;
 }
 
-function logMessage(type, ...content) {
-  var consolePre = document.getElementById("consolePre");
-  var date = new Date();
-  var timeString = date.toUTCString();
-  var logMessage = timeString + " - " + type + " - " + content.join("");
-  // consolePre.innerHTML += logMessage + "\n";
-  if (type === "INFO") {
-    console.info(logMessage);
-  } else if (type === "ERROR") {
-    console.error(logMessage);
-  } else {
-    console.log(logMessage);
+function getDeviceCtrlButtonTag(controller, fun_name, fun_id) {
+  var r = '<div class="col-lg-1"><div class="form-group"><label for="publishButton"></label><button id = "ACT_BT_'
+    + fun_id
+    + '" type = "button" name = "ctrl_bt" class="btn btn-default" onclick = "publish(\''
+    + controller + '\',\'' + fun_id + '\');" > ' + fun_name + '</button ></div ></div > ';
+  return r;
+}
+function initDeviceList() {
+  var xmlhttp = null;
+  var text = null;
+  var obj = null;
+  var url;
+
+  url = "json/device.json";
+
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", url, false);
+  xmlhttp.send(null);
+
+  text = xmlhttp.responseText;
+  obj = JSON.parse(text);
+
+  var taglist = "";
+
+  for (var i = 0; i < obj.length; i++) {
+    taglist += '<tr>';
+    taglist += '<td>';
+    taglist += obj[i].device_describe;
+    taglist += '</td>';
+    for (var j = 0; j < obj[i].fun.length; j++) {
+      taglist += '<td>';
+      taglist += getDeviceCtrlButtonTag(obj[i].controller_ID, obj[i].fun[j].name, obj[i].fun[j].fun_id);
+      taglist += '</td>';
+    }
+    taglist += '</tr>';
   }
+  document.getElementById("device_ctrl_bt_list").innerHTML = taglist;
+
 }

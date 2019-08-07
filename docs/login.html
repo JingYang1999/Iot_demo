@@ -9,10 +9,24 @@
             align-content: center;
         }
     </style>
+    <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/global.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
     <script type="text/javascript" src="js/sha512.js"></script>
+    <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
     <script>
+        var UserIPv4;
+        var UserIPv6;
+
+        function setUserIPv6(r) {
+            UserIPv6 = r["ip"];
+            // alert(UserIPv6);
+        }
+        function setUserIPv4(r) {
+            UserIPv4 = r["ip"];
+            // alert(UserIPv4);
+        }
         function t_login_check() {
             var status = "";
             status = sessionStorage.getItem("status");
@@ -20,7 +34,83 @@
                 window.location.href = "index.html";
             }
         }
+
+        window.capCallback = function (res) {
+            console.log(res)
+            // res（用户主动关闭验证码）= {ret: 2, ticket: null}
+            // res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
+            if (res.ret === 0) {
+
+                checkCaptcha(res);
+            }
+        }
+
+        function checkCaptcha(res) {
+            // alert("ok");
+            var aid = "2090784984";
+            var AppSecretKey = "0PUZxPDMrVHGhATkFOE4WmQ**";
+            var Ticket = res.ticket;
+            var Randstr = res.randstr;
+            var UserIP;
+            if (UserIPv6 != "") {
+                UserIP = UserIPv6;
+            } else {
+                UserIP = UserIPv4;
+            }
+
+            // var url = "https://ssl.captcha.qq.com/ticket/verify?aid=" + aid + "&AppSecretKey=" + AppSecretKey + "&Ticket=" + Ticket + "&Randstr=" + Randstr + "&UserIP=" + UserIP;
+            // rjson = get_Ajax_json_obj(url);
+
+            $.ajax({
+                type: "GET",
+                url: "https://ssl.captcha.qq.com/ticket/verify",
+                async: true,
+                dataType: 'jsonp',
+                processData: false,
+                headers: {
+                    Origin: "*",
+                },
+                data: {
+                    aid: aid,
+                    AppSecretKey: AppSecretKey,
+                    Ticket: Ticket,
+                    Randstr: Randstr,
+                    UserIP: UserIP,
+                },
+
+                error: function (XMLHttpRequest, textStatus,
+                    errorThrown) {
+                    //alert("出错了，请于管理员联系");
+                    login();
+                },
+                success: function (json) {
+                    if (json.response == "1") {
+                        login()
+                    } else if (json.response == "0") {
+                        alert("未通过验证");
+
+                    } else if (json.response == "100") {
+                        alert("AppSecretKey参数校验错误");
+                    }
+                }
+            });
+
+
+
+        }
+        // function getUserIP() {
+
+
+        //     var apiV4 = "https://ipv4.vm0.test-ipv6.com/ip/";
+        //     var apiV6 = "https://ipv6.vm0.test-ipv6.com/ip/";
+
+        //     UserIPv4 = get_Ajax_json_obj(apiV4).
+        // }
+
     </script>
+
+    <script src="https://ipv6.vm0.test-ipv6.com/ip/?callback=setUserIPv6"></script>
+    <script src="https://ipv4.vm0.test-ipv6.com/ip/?callback=setUserIPv4"></script>
 </head>
 
 <body onload='t_login_check()'>
@@ -40,8 +130,10 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="button" onclick="login()" value="登录" /></td>
-                <td id="t_bt"></td>
+                <!-- <td><input type="button" onclick="login()" value="登录" /></td> -->
+                <td><button id="TencentCaptcha" data-appid="2090784984" data-cbfn="capCallback"
+                            type="button">登录</button>
+                </td>
                 <td><input type="reset" /></td>
             </tr>
 

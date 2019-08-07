@@ -28,3 +28,15 @@ function logout() {
     sessionStorage.removeItem("status");
     window.location.href = "login.html";
 }
+
+function get_Ajax_json_obj(url) {
+    var xmlhttp = null;
+    var text = null;
+    var obj = null;
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", url, false);
+    xmlhttp.send(null);
+    text = xmlhttp.responseText;
+    obj = JSON.parse(text);
+    return obj;
+}

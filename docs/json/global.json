@@ -1,0 +1,6 @@
+{
+    "Server": "iot.eclipse.org",
+    "port": "1883",
+    "appid": "01234567",
+    "appkey": "01234567"
+}

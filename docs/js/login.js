@@ -27,8 +27,8 @@ function check_name_pswd(name, pwhs) {
     var obj = null;
     var url;
 
-    url = "user.json";
-    //             url = "https://iot.iisjy.cn/conf/config.json";
+    url = "json/user.json";
+
 
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", url, false);
@@ -36,12 +36,6 @@ function check_name_pswd(name, pwhs) {
 
     text = xmlhttp.responseText;
     obj = JSON.parse(text);
-
-    //             if(obj.global[0].appid==name && obj.global[0].appkey==pswd){
-    //                 return 1;
-    //             }else{
-    //                 return 0;
-    //             }
 
     for (var i = 0; i < obj.user.length; i++) {
         if (obj.user[i].name == name && obj.user[i].pwhs == pwhs) {

@@ -15,7 +15,7 @@ function login() {
     flag = check_name_pswd(login_name, login_pwhs);
     if (flag == 1) {
         sessionStorage.setItem("status", "ok");
-        window.location.href = "index.html";
+        window.location.href = "panel.html";
     }
     else {
         alert("账号或密码不正确！");
@@ -28,7 +28,6 @@ function check_name_pswd(name, pwhs) {
     var url;
 
     url = "json/user.json";
-
 
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", url, false);

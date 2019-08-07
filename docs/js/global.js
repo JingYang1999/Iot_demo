@@ -24,6 +24,7 @@ function login_check() {
         window.location.href = "login.html";
     }
 }
+
 function logout() {
     sessionStorage.removeItem("status");
     window.location.href = "login.html";

@@ -8,11 +8,20 @@
 
 </head>
 
-<body onload="login_check()">
+<body>
     <h1>Hello World!</h1>
     <input type="button" value="控制面板" onclick="window.location.href='panel.html'" />
-    <input type="button" value="退出" onclick="logout()" />
+    <input type="button" id="logbt" onclick="logout()" />
+    <script>
+        var loginflag = sessionStorage.getItem("status");
+        if (loginflag == "ok") {
+            document.getElementById("logbt").value = "退出";
+        }
+        else {
+            document.getElementById("logbt").value = "登录";
+        }
 
+    </script>
 </body>
 
 </html>

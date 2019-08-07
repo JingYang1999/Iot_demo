@@ -20,13 +20,16 @@ function get_text(u) {
 function login_check() {
     var status = "";
     status = sessionStorage.getItem("status");
+
     if (status != "ok") {
+        sessionStorage.setItem("lasturl", window.location.href)
         window.location.href = "login.html";
     }
 }
 
 function logout() {
     sessionStorage.removeItem("status");
+    sessionStorage.setItem("lasturl", window.location.href)
     window.location.href = "login.html";
 }
 

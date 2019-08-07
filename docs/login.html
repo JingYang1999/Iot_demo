@@ -40,7 +40,6 @@
             // res（用户主动关闭验证码）= {ret: 2, ticket: null}
             // res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
             if (res.ret === 0) {
-
                 checkCaptcha(res);
             }
         }
@@ -62,8 +61,7 @@
                 type: "GET",
                 url: "https://ssl.captcha.qq.com/ticket/verify",
                 async: true,
-                dataType: 'jsonp',
-                processData: false,
+                dataType: 'json',
                 headers: {
                     Origin: "*",
                 },
@@ -91,54 +89,7 @@
                     }
                 }
             });
-
-
-
         }
-        // function getUserIP() {
-
-
-        //     var apiV4 = "https://ipv4.vm0.test-ipv6.com/ip/";
-        //     var apiV6 = "https://ipv6.vm0.test-ipv6.com/ip/";
-
-        //     UserIPv4 = get_Ajax_json_obj(apiV4).
-        // }
-
-        function checkUserName() {
-            var name = document.getElementsByName('un')[0].value;
-
-            var flag = 0;
-            var xmlhttp = null;
-            var text = null;
-            var obj = null;
-            var url;
-
-            url = "json/user.json";
-
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", url, false);
-            xmlhttp.send(null);
-
-            text = xmlhttp.responseText;
-            obj = JSON.parse(text);
-            // alert(obj.user.length);
-            for (var i = 0; i < obj.user.length; i++) {
-                // alert(obj.user[i].name + "==" + name);
-                if (obj.user[i].name == name) {
-                    flag = 1;
-                }
-            }
-            if (flag == 1) {
-                document.getElementsByName('pw')[0].disabled = "";
-            }
-            else {
-                document.getElementsByName('pw')[0].disabled = "disabled";
-            }
-
-
-
-        }
-
     </script>
 
     <script src="https://ipv6.vm0.test-ipv6.com/ip/?callback=setUserIPv6"></script>

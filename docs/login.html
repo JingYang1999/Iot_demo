@@ -58,9 +58,6 @@
                 UserIP = UserIPv4;
             }
 
-            // var url = "https://ssl.captcha.qq.com/ticket/verify?aid=" + aid + "&AppSecretKey=" + AppSecretKey + "&Ticket=" + Ticket + "&Randstr=" + Randstr + "&UserIP=" + UserIP;
-            // rjson = get_Ajax_json_obj(url);
-
             $.ajax({
                 type: "GET",
                 url: "https://ssl.captcha.qq.com/ticket/verify",
@@ -107,6 +104,41 @@
         //     UserIPv4 = get_Ajax_json_obj(apiV4).
         // }
 
+        function checkUserName() {
+            var name = document.getElementsByName('un')[0].value;
+
+            var flag = 0;
+            var xmlhttp = null;
+            var text = null;
+            var obj = null;
+            var url;
+
+            url = "json/user.json";
+
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url, false);
+            xmlhttp.send(null);
+
+            text = xmlhttp.responseText;
+            obj = JSON.parse(text);
+            // alert(obj.user.length);
+            for (var i = 0; i < obj.user.length; i++) {
+                // alert(obj.user[i].name + "==" + name);
+                if (obj.user[i].name == name) {
+                    flag = 1;
+                }
+            }
+            if (flag == 1) {
+                document.getElementsByName('pw')[0].disabled = "";
+            }
+            else {
+                document.getElementsByName('pw')[0].disabled = "disabled";
+            }
+
+
+
+        }
+
     </script>
 
     <script src="https://ipv6.vm0.test-ipv6.com/ip/?callback=setUserIPv6"></script>
@@ -121,16 +153,15 @@
         <table>
             <tr>
                 <td colspan="3">
-                    <input type="text" name="un" />
+                    <input type="text" name="un" oninput="checkUserName()" />
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="password" name="pw" />
+                    <input type="password" name="pw" disabled="disabled" />
                 </td>
             </tr>
             <tr>
-                <!-- <td><input type="button" onclick="login()" value="登录" /></td> -->
                 <td><button id="TencentCaptcha" data-appid="2090784984" data-cbfn="capCallback"
                             type="button">登录</button>
                 </td>

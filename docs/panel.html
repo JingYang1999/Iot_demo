@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="css/panel.css">
 
   <script type="text/javascript" src="js/global.js"></script>
-
+  <script>
+    login_check();
+  </script>
 </head>
 
-<body onload="login_check();connect();">
+<body>
   <div class="container">
     <!-- Nav Bar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -94,6 +96,7 @@
   <script src="js/bootstrap.min.js"></script>
 
   <script>
+    connect();
     initDeviceList();
   </script>
 </body>

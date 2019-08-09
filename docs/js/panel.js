@@ -165,18 +165,23 @@ function setFormEnabledState(enabled) {
 }
 
 function publish(controller, fun_id) {
-  var topic = controller;
-  var qos = "1";
-  var message = fun_id;
-  var retain = true;
+  //调用验证码服务
+  document.getElementsByName("doActionCaptcha")[0].click();
+  if (CaptFlag === 0) {
+    var topic = controller;
+    var qos = "1";
+    var message = fun_id;
+    var retain = true;
 
-  for (var i = 0; i < 10; i++) {
-    message = new Paho.Message(message);
-    message.destinationName = topic;
-    message.qos = Number(qos);
-    message.retained = retain;
-    client.send(message);
+    for (var i = 0; i < 10; i++) {
+      message = new Paho.Message(message);
+      message.destinationName = topic;
+      message.qos = Number(qos);
+      message.retained = retain;
+      client.send(message);
+    }
   }
+  CaptFlag = -1;
 }
 
 

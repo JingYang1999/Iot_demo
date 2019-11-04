@@ -9,7 +9,7 @@
 
 char ssid[] = "JINGYANG";
 char password[] = "jingyang";
-char mqtt_server[] = "iot.eclipse.org";
+char mqtt_server[] = "mqtt.iisjy.cn";
 char sub_topic[] = "x5ssl431";
 char client_Id[] = "linkit-7697-431";
 
